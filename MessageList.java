@@ -27,4 +27,8 @@ public class MessageList extends DefaultListModel<String> {
 	}
     }
     
+    public Message getMessage(int index){
+	return listPositionToMessage.get(index);
+    }
+    
 }
