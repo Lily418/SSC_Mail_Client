@@ -32,10 +32,22 @@ public class EmailSender {
 
     }
 
-    public void sendMessage(String to, String subject, String text) throws AddressException, MessagingException {
+    public void sendMessage(String to, String[] cc, String subject, String text) throws AddressException, MessagingException {
 	MimeMessage message = new MimeMessage(session);
 	message.setFrom(new InternetAddress(username));
 	message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
+	
+	String emails = "";
+	for(String email : cc)
+	{
+	    emails += email + ",";
+	}
+	
+	emails = emails.substring(0, emails.length() - 1);
+	
+	message.setRecipients(Message.RecipientType.CC, InternetAddress.parse(emails));
+	
+	
 	message.setSubject(subject);
 	message.setText(text);
 

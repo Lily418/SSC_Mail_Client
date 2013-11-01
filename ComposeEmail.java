@@ -60,6 +60,10 @@ public class ComposeEmail extends JFrame {
 	return emailArea.getText();
     }
     
+    public String[] getCC(){
+	return ccField.getText().split(",");
+    }
+    
    
     
 }
