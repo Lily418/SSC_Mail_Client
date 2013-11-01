@@ -29,6 +29,7 @@ public class ComposeEmail extends JFrame {
 	subjectField = new JTextField(45);
 	emailArea = new JTextArea();
 	emailArea.setPreferredSize(new Dimension(500, 300));
+	emailArea.setLineWrap(true);
 	JButton sendButton = new JButton();
 	sendButton.setText("Send");
 	
