@@ -18,7 +18,7 @@ public class NavigationBar extends JPanel {
    private MessageList messageList;
    private JList<String> jList;
    
-    public NavigationBar() throws MessagingException{
+    public NavigationBar(EmailClient emailClient){
 	
 	JButton sendButton = new JButton();
 	sendButton.setText("Send ");
@@ -31,7 +31,7 @@ public class NavigationBar extends JPanel {
 	});
 	this.add(sendButton);
 	
-	emailClient = new EmailClient();
+	this.emailClient = emailClient;
 	this.messageList = new MessageList();
 	messageList.addMessages(emailClient.getEmailConnection());
 	
