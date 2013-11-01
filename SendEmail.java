@@ -23,7 +23,7 @@ public class SendEmail implements ActionListener {
 	try {
 	    if(!sendingEmail){
 		sendingEmail = true;
-		emailSender.sendMessage(composeEmail.getTo(), composeEmail.getCC(), composeEmail.getSubject(), composeEmail.getEmailContents());
+		emailSender.sendMessage(composeEmail.getTo(), composeEmail.getCC(), composeEmail.getSubject(), composeEmail.getAttachments(), composeEmail.getEmailContents());
 		composeEmail.clearInput();
 		JOptionPane.showMessageDialog(composeEmail,"Message Sent");
 		

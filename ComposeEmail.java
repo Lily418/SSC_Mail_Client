@@ -14,6 +14,7 @@ public class ComposeEmail extends JFrame {
     private JTextField ccField;
     private JTextField subjectField;
     private JTextArea emailArea;
+    private AttachmentManager attachmentManager;
     
     public ComposeEmail(){
 	setVisible(true);
@@ -33,6 +34,8 @@ public class ComposeEmail extends JFrame {
 	JButton sendButton = new JButton();
 	sendButton.setText("Send");
 	
+	attachmentManager = new AttachmentManager();
+	
 	this.setPreferredSize(new Dimension(550, 500));
 	
 	this.add(toLabel);
@@ -41,6 +44,7 @@ public class ComposeEmail extends JFrame {
 	this.add(ccField);
 	this.add(subjectLabel);
 	this.add(subjectField);
+	this.add(attachmentManager);
 	this.add(emailArea);
 	this.add(sendButton);
 	
@@ -70,6 +74,10 @@ public class ComposeEmail extends JFrame {
 	ccField.setText("");
 	subjectField.setText("");
 	emailArea.setText("");
+    }
+    
+    public String[] getAttachments(){
+	return attachmentManager.getAttachments();
     }
    
     
