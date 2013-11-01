@@ -1,4 +1,7 @@
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 import javax.swing.DefaultComboBoxModel;
@@ -16,13 +19,23 @@ public class AttachmentManager extends JPanel {
 	this.setLayout(layout);
 	
 	attachmentList = new DefaultComboBoxModel<File>();
-	JComboBox<File>attachments = new JComboBox<File>(attachmentList);
+	final JComboBox<File>attachments = new JComboBox<File>(attachmentList);
 	
+	Dimension attachmentsSize = attachments.getSize();
+	attachments.setPreferredSize(new Dimension(200, 25));
 	
 	JButton deleteButton = new JButton("Delete Selected");
 	JButton addAttachment = new JButton("Add Attachment");
 	
 	addAttachment.addActionListener(new AddAttachmentActionListener(this, attachmentList));
+	
+	deleteButton.addActionListener(new ActionListener() {
+	    
+	    @Override
+	    public void actionPerformed(ActionEvent arg0) {
+		attachmentList.removeElementAt(attachments.getSelectedIndex());
+	    }
+	});
 	
 	add(attachments);
 	add(deleteButton);

@@ -27,7 +27,7 @@ public class ComposeEmail extends JFrame {
 	JLabel subjectLabel = new JLabel("Subject:");
 	toField = new JTextField(45);
 	ccField = new JTextField(45);
-	subjectField = new JTextField(45);
+	subjectField = new JTextField(40);
 	emailArea = new JTextArea();
 	emailArea.setPreferredSize(new Dimension(500, 300));
 	emailArea.setLineWrap(true);
