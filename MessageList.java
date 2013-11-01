@@ -23,7 +23,13 @@ public class MessageList extends DefaultListModel<String> {
 	
 	for(Message message : messages){
 	    listPositionToMessage.add(message);
-	    this.addElement("<html>" + message.getFrom()[0] +" <br /> " + message.getSubject() + "<br /><br /></html>");
+	    
+	    String subject = message.getSubject();
+	    if(subject == null){
+		subject = "";
+	    }
+	    
+	    this.addElement("<html>" + message.getFrom()[0] +" <br /> " + subject + "<br /><br /></html>");
 	}
     }
     

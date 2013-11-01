@@ -64,6 +64,12 @@ public class ComposeEmail extends JFrame {
 	return ccField.getText().split(",");
     }
     
+    public void clearInput(){
+	toField.setText("");
+	ccField.setText("");
+	subjectField.setText("");
+	emailArea.setText("");
+    }
    
     
 }
