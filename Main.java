@@ -1,4 +1,3 @@
-import javax.mail.MessagingException;
 
 
 public class Main {

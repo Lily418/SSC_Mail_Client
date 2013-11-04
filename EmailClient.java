@@ -2,34 +2,45 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.swing.DefaultListModel;
 
-
+/**
+ * For retrieving an Messages from an inbox
+ * 
+ * @author joel
+ */
 public class EmailClient {
-    
+
     private EmailConnection emailConnection;
 
-    public EmailClient() throws MessagingException{
-	emailConnection = new EmailConnection("harrypop3@gmail.com", "KVHu4yHy");
-	
+    /**
+     * 
+     * @param email
+     *            Email Address for account
+     * @param password
+     *            Password for account
+     * @throws MessagingException
+     *             Thrown if the credentials cannot be authenticated or if there
+     *             is a network issue
+     */
+    public EmailClient(String email, String password) throws MessagingException {
+	emailConnection = new EmailConnection(email, password);
+
     }
-    
-    public void printMessages() throws MessagingException{
-	for(Message m : emailConnection){
-	    System.out.println(m.getFrom()[0] +" " + m.getSubject());
-	}
-    }
-    
-    public void fillListModel(DefaultListModel<Message> messageList)
-    {
+
+    /**
+     * Adds each message from the connected account the the messageList
+     * 
+     * @param messageList
+     *            A MessageList to add the messages to
+     */
+    public void fillListModel(DefaultListModel<Message> messageList) {
 	messageList.clear();
-	for(Message m : emailConnection)
-	{
-	    System.out.println(m.getClass());
+	for (Message m : emailConnection) {
 	    messageList.addElement(m);
 	}
     }
-    
+
     public EmailConnection getEmailConnection() {
-        return emailConnection;
+	return emailConnection;
     }
 
 }

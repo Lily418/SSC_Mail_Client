@@ -4,14 +4,25 @@ import java.awt.event.ActionListener;
 import javax.mail.MessagingException;
 import javax.swing.JOptionPane;
 
+/**
+ * An action listener to listen to when a button is pressed,send the email and clear the email input
+ * @author joel
+ *
+ */
 public class SendEmail implements ActionListener {
 
     private EmailSender emailSender;
     private ComposeEmail composeEmail;
     private volatile boolean sendingEmail = false;
 
-    public SendEmail(ComposeEmail composeEmail) {
-	emailSender = new EmailSender();
+    /**
+     * 
+     * @param composeEmail Email Input to take the contents of
+     * @param email Email of the sender
+     * @param password Password of the sender
+     */
+    public SendEmail(ComposeEmail composeEmail, String email, String password) {
+	emailSender = new EmailSender(email, password);
 	this.composeEmail = composeEmail;
     }
 
@@ -21,6 +32,7 @@ public class SendEmail implements ActionListener {
 	
 
 	try {
+	    //Stops pressing the button multiple times sending the e-mail multiple times.
 	    if(!sendingEmail){
 		sendingEmail = true;
 		emailSender.sendMessage(composeEmail.getTo(), composeEmail.getCC(), composeEmail.getSubject(), composeEmail.getAttachments(), composeEmail.getEmailContents());
@@ -29,7 +41,7 @@ public class SendEmail implements ActionListener {
 		
 	    }
 	} catch (MessagingException e1) {
-	    // TODO Auto-generated catch block
+	    // Thrown if the email cannot be sent
 	    e1.printStackTrace();
 	} finally {
 	    sendingEmail = false;

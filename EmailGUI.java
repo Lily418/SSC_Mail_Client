@@ -7,6 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+/**
+ * A GUI for an Email Client
+ * @author joel
+ *
+ */
 public class EmailGUI extends JFrame {
 
     public EmailGUI() {
@@ -15,7 +20,7 @@ public class EmailGUI extends JFrame {
 	try {
 	    this.setBackground(new Color(200, 0, 0));
 		
-	    navBar = new NavigationBar(new EmailClient());
+	    navBar = new NavigationBar(new EmailClient("harrypop3@gmail.com", "KVHu4yHy"), "harrypop3@gmail.com", "KVHu4yHy");
 	    navBar.setPreferredSize(new Dimension(300, 600));
 	    this.add(navBar, BorderLayout.WEST);
 

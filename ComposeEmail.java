@@ -7,7 +7,11 @@ import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-
+/**
+ * A window for the user to input their email and add attachments.
+ * @author joel
+ *
+ */
 public class ComposeEmail extends JFrame {
 
     private JTextField toField;
@@ -16,7 +20,7 @@ public class ComposeEmail extends JFrame {
     private JTextArea emailArea;
     private AttachmentManager attachmentManager;
     
-    public ComposeEmail(){
+    public ComposeEmail(String email, String password){
 	setVisible(true);
 	
 	FlowLayout layout = new FlowLayout();
@@ -48,7 +52,7 @@ public class ComposeEmail extends JFrame {
 	this.add(emailArea);
 	this.add(sendButton);
 	
-	sendButton.addActionListener(new SendEmail(this));
+	sendButton.addActionListener(new SendEmail(this, email, password));
 	
 	this.pack();
     }
@@ -69,11 +73,15 @@ public class ComposeEmail extends JFrame {
 	return ccField.getText().split(",");
     }
     
+    /**
+     * Resets all the fields to be blank
+     */
     public void clearInput(){
 	toField.setText("");
 	ccField.setText("");
 	subjectField.setText("");
 	emailArea.setText("");
+	attachmentManager.clearAttachments();
     }
     
     public String[] getAttachments(){
