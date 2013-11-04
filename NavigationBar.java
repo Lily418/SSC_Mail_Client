@@ -14,6 +14,11 @@ import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 
 
+/**
+ * A JPanel containing a send button, a list of received messages and a search input
+ * @author joel
+ *
+ */
 public class NavigationBar extends JPanel {
     
    private MessageList messageList;
@@ -25,8 +30,9 @@ public class NavigationBar extends JPanel {
 	FlowLayout layout = new FlowLayout();
 	this.setLayout(layout);
 	
+	//Send button
 	JButton sendButton = new JButton();
-	sendButton.setText("Send ");
+	sendButton.setText("Send");
 	sendButton.addActionListener(new ActionListener() {
 	    
 	    @Override
@@ -34,8 +40,11 @@ public class NavigationBar extends JPanel {
 		ComposeEmail composeEmail = new ComposeEmail(email, password);
 	    }
 	});
+	
 	this.add(sendButton);
 	
+	
+	//List of messages
 	this.messageList = new MessageList();
 	messageList.addMessages(emailClient.getEmailConnection());
 	
@@ -44,12 +53,18 @@ public class NavigationBar extends JPanel {
 	this.add(jList);
 	
 	
+	//Email search
 	EmailSearchField emailSearchField = new EmailSearchField(messageList, jList);
 	emailSearchField.setPreferredSize(new Dimension(200, 25));
 	this.add(emailSearchField);
     }
     
+    /**
+     * Get the message selected by the JList
+     * @return
+     */
     public Message getSelectedMessage(){
+	//selectedIndex == -1 if no selections
 	if(jList.getSelectedIndex() != -1){
 	return messageList.getMessage(jList.getSelectedIndex());
 	}else{
