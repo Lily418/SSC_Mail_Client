@@ -25,16 +25,15 @@ public class EmailSender {
     private String email;
     private Session session;
     private String smtphost = "smtp.gmail.com";
-    private String password = "KVHu4yHy";
+    private String password;
 
     /**
      * @param email Email to send e-mails from
      * @param password Password for that email account
      */
     public EmailSender(String email, String password) {
-
-	this.email = email;
 	this.password = password;
+	this.email = email;
 	Properties props = System.getProperties();
 	props.put("mail.smtp.auth", "true");
 	props.put("mail.smtp.starttls.enable", "true");
@@ -57,7 +56,7 @@ public class EmailSender {
      * @throws AddressException Thrown if an email address cannot be parsed
      * @throws MessagingException Thrown if the e-mail cannot be sent
      */
-    public void sendMessage(String to, String[] cc, String subject, String[] attachments, String text) throws AddressException, MessagingException {
+    public void sendMessage(String to, String[] cc, String subject, String[] attachments, String text) throws MessagingException {
 
 	//The MimeMessage contains several headers and a Multipart contents
 	MimeMessage message = new MimeMessage(session);
@@ -95,13 +94,14 @@ public class EmailSender {
 
 	//Updates the headers to message
 	message.saveChanges();
-
-		Transport tr = session.getTransport("smtp"); // Get Transport object
-						     // from session
-	tr.connect(smtphost, email, password); // We need to connect
-	tr.sendMessage(message, message.getAllRecipients()); // Send message
+	
+	SendEmailWorker sendEmailWorker = new SendEmailWorker(session, smtphost, email, password, message);
+	sendEmailWorker.execute();
     }
 
+    
+    //I read this StackOverflow question to find out how to add attachments
+    //http://stackoverflow.com/questions/3177616/how-to-attach-multiple-files-to-an-email-using-javamail
     /**
      * Adds an attachment to a multipart message
      * @param multipart Message to add attachment to
