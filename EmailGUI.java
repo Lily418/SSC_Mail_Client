@@ -1,9 +1,7 @@
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.mail.MessagingException;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -17,10 +15,8 @@ public class EmailGUI extends JFrame {
     public EmailGUI() {
 	
 	NavigationBar navBar;
-	try {
-	    this.setBackground(new Color(200, 0, 0));
-		
-	    navBar = new NavigationBar(new EmailClient("harrypop3@gmail.com", "KVHu4yHy"), "harrypop3@gmail.com", "KVHu4yHy");
+	try {		
+	    navBar = new NavigationBar(new EmailClient("harrypop3@gmail.com", "8j4fECpb"), "harrypop3@gmail.com", "KVHu4yHy");
 	    navBar.setPreferredSize(new Dimension(300, 600));
 	    this.add(navBar, BorderLayout.WEST);
 

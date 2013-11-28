@@ -1,5 +1,6 @@
 import javax.mail.Message;
 import javax.mail.MessagingException;
+import javax.mail.event.MessageCountListener;
 import javax.swing.DefaultListModel;
 
 /**
@@ -41,6 +42,14 @@ public class EmailClient {
 
     public EmailConnection getEmailConnection() {
 	return emailConnection;
+    }
+    
+    public boolean newEmails(){
+	return emailConnection.newEmails();
+    }
+    
+    public void addMessageCountListener(MessageCountListener messageCountListener){
+	emailConnection.addMessageCountListener(messageCountListener);
     }
 
 }

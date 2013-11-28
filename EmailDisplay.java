@@ -24,8 +24,6 @@ public class EmailDisplay extends JPanel {
     private JTextArea textArea;
 
     public EmailDisplay() {
-	this.setBackground(new Color(0, 0, 255));
-
 	textArea = new JTextArea();
 	textArea.setPreferredSize(new Dimension(500, 600));
 	this.add(textArea);
