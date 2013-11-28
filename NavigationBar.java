@@ -54,9 +54,11 @@ public class NavigationBar extends JPanel {
 
 	this.add(jScrollPane);
 
-	CheckEmails checkEmails = new CheckEmails(messageList, emailClient);
+	//Performs the initial check for emails
+	CheckEmails checkEmails = new CheckEmails(messageList, emailClient, this, true);
 	checkEmails.execute();
 
+	//Adds a listener for when new messages are added to the IMAP folder
 	emailClient.addMessageCountListener(new MessageCountListener() {
 
 	    @Override
@@ -67,8 +69,8 @@ public class NavigationBar extends JPanel {
 
 	    @Override
 	    public void messagesAdded(MessageCountEvent arg0) {
-		System.out.println("Fired");
-		CheckEmails checkEmails = new CheckEmails(messageList, emailClient);
+		//When the message count has changed it creates a Swing Worker to get the new emails
+		CheckEmails checkEmails = new CheckEmails(messageList, emailClient,  NavigationBar.this, false);
 		checkEmails.execute();
 	    }
 	});

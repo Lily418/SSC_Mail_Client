@@ -12,7 +12,14 @@ public class SendEmailWorker extends SwingWorker<Boolean, Void> {
     private String email;
     private String password;
     
-
+/**
+ * Constructor for Email Worker to send an email
+ * @param session The SMTP session
+ * @param smtphost Address of the SMTP host
+ * @param email E-mail of sender
+ * @param password Password of sender
+ * @param message MimeMessage to send
+ */
     public SendEmailWorker(Session session, String smtphost, String email, String password, MimeMessage message) {
 	this.message = message;
 	this.session = session;
@@ -24,6 +31,7 @@ public class SendEmailWorker extends SwingWorker<Boolean, Void> {
     @Override
     protected Boolean doInBackground() throws Exception {
 
+	//Creates a transport, connects and sends a message
 	try {
 	    Transport tr = session.getTransport("smtp");
 	    tr.connect(smtphost, email, password);

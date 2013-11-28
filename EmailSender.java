@@ -95,6 +95,7 @@ public class EmailSender {
 	//Updates the headers to message
 	message.saveChanges();
 	
+	//Creates swing worker to create the transport and send the email
 	SendEmailWorker sendEmailWorker = new SendEmailWorker(session, smtphost, email, password, message);
 	sendEmailWorker.execute();
     }
