@@ -28,7 +28,7 @@ public class NavigationBar extends JPanel {
     private MessageList messageList;
     private JList<String> jList;
 
-    public NavigationBar(final EmailClient emailClient, final String email, final String password) {
+    public NavigationBar(final EmailClient emailClient, final String email, final String password, final EmailGUI emailGUI) {
 
 	FlowLayout layout = new FlowLayout();
 	this.setLayout(layout);
@@ -55,7 +55,7 @@ public class NavigationBar extends JPanel {
 	this.add(jScrollPane);
 
 	//Performs the initial check for emails
-	CheckEmails checkEmails = new CheckEmails(messageList, emailClient, this, true);
+	CheckEmails checkEmails = new CheckEmails(messageList, emailClient, emailGUI, true);
 	checkEmails.execute();
 
 	//Adds a listener for when new messages are added to the IMAP folder
@@ -70,7 +70,7 @@ public class NavigationBar extends JPanel {
 	    @Override
 	    public void messagesAdded(MessageCountEvent arg0) {
 		//When the message count has changed it creates a Swing Worker to get the new emails
-		CheckEmails checkEmails = new CheckEmails(messageList, emailClient,  NavigationBar.this, false);
+		CheckEmails checkEmails = new CheckEmails(messageList, emailClient,  emailGUI, false);
 		checkEmails.execute();
 	    }
 	});

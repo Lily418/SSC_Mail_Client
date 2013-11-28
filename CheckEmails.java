@@ -13,7 +13,7 @@ public class CheckEmails extends SwingWorker<Void, Void> {
     private boolean firstCheck;
 
     /**
-     * Construstor for Swing Worker to retrive the e-mail inbox
+     * Constructor for Swing Worker to retrieve the e-mail inbox
      * @param messageList Instance of MessageList, a ListModel to fill with the received messages
      * @param emailClient An Email client which contains the IMAP connection
      * @param parent JComponent to be the parent of a JMessageDialog

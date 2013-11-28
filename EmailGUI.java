@@ -16,7 +16,7 @@ public class EmailGUI extends JFrame {
 	
 	NavigationBar navBar;
 	try {		
-	    navBar = new NavigationBar(new EmailClient("harrypop3@gmail.com", "8j4fECpb"), "harrypop3@gmail.com", "KVHu4yHy");
+	    navBar = new NavigationBar(new EmailClient("harrypop3@gmail.com", "8j4fECpb"), "harrypop3@gmail.com", "8j4fECpb", this);
 	    navBar.setPreferredSize(new Dimension(300, 600));
 	    this.add(navBar, BorderLayout.WEST);
 

@@ -1,17 +1,14 @@
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.List;
 
-import javax.imageio.ImageIO;
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
-
-import com.sun.mail.util.BASE64DecoderStream;
 
 /**
  * A Panel to display an e-mail message
@@ -28,18 +25,10 @@ public class EmailDisplay extends JPanel {
 	textArea.setPreferredSize(new Dimension(500, 600));
 	this.add(textArea);
     }
-
-    /**
-     * Sets the contents of the Email Display to the message passed
-     * @param message
-     */
-    public void setMessage(Message message){
-	if(message != null){
-	    textArea.setText(parseMessageContents(message, true));
-	}else{
-	    textArea.setText("");
-	}
-	
+    
+    
+    public void setTextArea(String text){
+	textArea.setText(text);
     }
     
     /**
@@ -48,9 +37,10 @@ public class EmailDisplay extends JPanel {
      * @param message
      *            The message to parse
      */
-    public String parseMessageContents(Message message, boolean openImages) {
+    public ParsedMessage parseMessageContents(Message message, boolean openImages) {
 
 	String messageContents = "";
+	List<OpenImageWorker> imageWorkers = new LinkedList<>();
 	
 	try {
 	    if (message.getContentType().contains("TEXT/PLAIN")) {
@@ -65,18 +55,11 @@ public class EmailDisplay extends JPanel {
 		    BodyPart bodyPart = multipart.getBodyPart(i);
 		    if (bodyPart.getContentType().contains("TEXT/PLAIN")) {
 			messageContents += bodyPart.getContent().toString();
-		    } else if(bodyPart.getContentType().contains("APPLICATION/OCTET-STREAM") && bodyPart.getContentType().contains(".jpg")){
+		    } else if(bodyPart.getContentType().contains("IMAGE/JPEG")){
 			
 			if(openImages){
-			//If it's an image then the content will be of type BASE64DecoderStream
-			BASE64DecoderStream decoder = (BASE64DecoderStream)bodyPart.getContent();
-			
-			//Which can be read by ImageIO
-			BufferedImage image = ImageIO.read(decoder);
-			
-			//Opens a frame with that image
-			ImageFrame imageFrame = new ImageFrame(image);
-			imageFrame.setVisible(true);
+			    OpenImageWorker openImageWorker = new OpenImageWorker(bodyPart.getContent());
+			    imageWorkers.add(openImageWorker);
 			}
 			
 			
@@ -90,7 +73,7 @@ public class EmailDisplay extends JPanel {
 	    messageContents = (e.toString());
 	}
 	
-	return messageContents;
+	return new ParsedMessage(messageContents, imageWorkers);
     }
 
 }

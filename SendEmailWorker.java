@@ -38,6 +38,7 @@ public class SendEmailWorker extends SwingWorker<Boolean, Void> {
 	    tr.sendMessage(message, message.getAllRecipients());
 	    return true;
 	} catch (MessagingException e) {
+	    System.out.println(e);
 	    return false;
 	}
 
